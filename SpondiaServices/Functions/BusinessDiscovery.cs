@@ -35,7 +35,7 @@ namespace UserMedias.Functions
             string url = "https://graph.facebook.com/";
             string ver = "v4.0/";
             string user_id = "17841405375274306";//owner
-            string urlRequest = "?fields=business_discovery.username(" + businessName + "){name,followers_count,media_count,media{comments_count,like_count,id}}&access_token=";
+            string urlRequest = "?fields=business_discovery.username(" + businessName + "){followers_count,media_count,media{comments_count,like_count,id,media_url,timestamp}}&access_token=";
             string fullUrl = url + ver + user_id + urlRequest + Access_token;
             var result = string.Empty;
             dynamic responseDTO = new ExpandoObject();
@@ -70,21 +70,21 @@ namespace UserMedias.Functions
                             var Comments_count = (long)datavalue["comments_count"];// comment
                             var likes_count = (long)datavalue["like_count"];//likes
                             var Id = (long)datavalue["id"];
-                            //var link_url = datavalue["permalink"].ToString();//links
-                            //var Med_id = datavalue["id"].ToString();//image id
-                            //var times = datavalue["timestamp"].ToString();
-                            //var mediaUrl = datavalue["media_url"];
-                            //var mediaType = datavalue["media_type"];
+                           // var link_url = datavalue["permalink"].ToString();//links
+                            var Med_id = datavalue["id"].ToString();//image id
+                            var times = datavalue["timestamp"].ToString();
+                            var mediaUrl = datavalue["media_url"];
+                            var mediaType = datavalue["media_type"];
                             var mediaData = new
                             {
                                 commentsCount = Comments_count,
                                 likesCount = likes_count,
-                                Id
+                                Id,
                                // linkUrl = link_url,
-                                //mediaId = Med_id,
-                                //timeStamp = times,
-                                //mediaUrl,
-                                //mediaType
+                                mediaId = Med_id,
+                                timeStamp = times,
+                                mediaUrl,
+                                mediaType
                             };
                             responseDTO.mediaList.Add(mediaData);
 
